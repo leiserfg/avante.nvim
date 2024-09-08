@@ -421,6 +421,7 @@ function RepoMap.extract_definitions(filepath)
           type = enum_type,
         })
       elseif type == "method" then
+        if name and filetype == "go" and not Utils.is_first_letter_uppercase(name) then goto continue end
         local params_node = node:field("parameters")[1]
         local params = params_node and get_node_text(params_node, parsed.source) or "()"
         local return_type_node = node:field("return_type")[1] or node:field("result")[1]
@@ -438,7 +439,6 @@ function RepoMap.extract_definitions(filepath)
         else
           class_name = get_closest_parent_name(node, parsed.source)
         end
-        if class_name and filetype == "go" and not Utils.is_first_letter_uppercase(class_name) then goto continue end
         local class_def = get_class_def(class_name)
 
         local accessibility_modifier_node = find_child_by_type(node, "accessibility_modifier")
