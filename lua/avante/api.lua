@@ -137,7 +137,7 @@ M.refresh = function(opts)
   sidebar:close()
   sidebar.code.winid = curwin
   sidebar.code.bufnr = curbuf
-  vim.schedule(function() sidebar:render(opts) end)
+  sidebar:render(opts)
 end
 
 return setmetatable(M, {

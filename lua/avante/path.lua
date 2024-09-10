@@ -49,10 +49,10 @@ end
 -- Saves the chat history for the given buffer.
 ---@param bufnr integer
 ---@param history table
-M.save = function(bufnr, history)
+M.save = vim.schedule_wrap(function(bufnr, history)
   local history_file = M.get(bufnr)
   history_file:write(vim.json.encode(history), "w")
-end
+end)
 
 P.history = M
 
